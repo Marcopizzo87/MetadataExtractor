@@ -1,5 +1,5 @@
 #####################################################
-#       Metadata generator from shapefile           #
+#       Metadata Extractor from shapefile           #
 #                                                   #  
 #                November 22th 2018                 #
 #                 Marco Pizzolato                   #
@@ -8,7 +8,6 @@
 ### SHORT DESCRIPTION ----
 
 # The script loops through the shapefile in a folder and creates a report 
-# In the same folder there must be also the "metadata_to_fill.xlsx" file
 
 ### PACKAGES ----
 
@@ -119,41 +118,10 @@ for (i in 1:length(list_shp)){
   list_whaaat[[i]] <- shape$header$fields
 }
 
-# read shapefile with sf package
-#att_table <- st_read("./Bote_Tenure foncière_Polygon.shp")
-#att_layers <- st_layers("./Bote_Tenure foncière_Polygon.shp")
-
-# read shapefile with shapefile package
-#shape <- read.dbf("Bote_Tenure foncière_Polygon.dbf", header = TRUE)
-#whaaat = shape$header$fields
-
-# get the attribute table compiled
-#tabellone <- data.frame(stringsAsFactors=FALSE)
-# name
-#tabellone[1,1] <- "Name "
-#tabellone[1,2] <- att_layers$name
-# geometry
-#tabellone[2,1] <- "Geometry "
-#tabellone[2,2] <- att_layers$geomtype[[1]]
-# driver
-#tabellone[3,1] <- "Driver "
-#tabellone[3,2] <- att_layers$driver
-# crs
-#tabellone[4,1] <- "CRS  "
-#tabellone[4,2] <- st_crs(att_table)[1]
-#tabellone[5,1] <- ""
-#tabellone[5,2] <- st_crs(att_table)[2]
-# feature count
-#tabellone[6,1] <- "Feature count "
-#tabellone[6,2] <- att_layers$features
-# fields count
-#tabellone[7,1] <- "Fields count "
-#tabellone[7,2] <- att_layers$fields
-
 
 ### PRINT THE PDF ----
 
-rmarkdown::render( input = "metadataGenerator/metadata.Rmd",
+rmarkdown::render( input = "metadataExtractor/metadata.Rmd",
                    output_format = "pdf_document",
                    output_file = paste("MetadataGenerator", ".pdf", sep = ""),
                    output_dir = getwd()) 
