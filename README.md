@@ -21,10 +21,10 @@ Run metadata_code.R
 1. You might have problems with the lates version of the markdown library.
 If this is the case install the version 1.8
 
-> Install previous version of rmarkdown
-> install.packages("devtools")
-> library(devtools)
-> install_version("rmarkdown",version=1.8)
+> Install previous version of rmarkdown  
+> install.packages("devtools")  
+> library(devtools)  
+> install_version("rmarkdown",version=1.8)  
 
 2. Ensure to have installed MikTex and have abilitated the on the fly installation of new packages.
 
