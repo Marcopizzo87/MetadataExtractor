@@ -10,7 +10,7 @@ This files contains the metadata!
 Source path:
 ```{r echo = FALSE, message=FALSE, comment=NA}
 
-kable(path_disp, format = "pandoc", padding = 8,col.names =c(""), caption = "Source folder path:")
+kable(path_print, format = "pandoc", padding = 8,col.names =c(""), caption = "Source folder path:")
 ```
 
 
