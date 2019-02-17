@@ -20,6 +20,8 @@ install.packages('D:/Downloads/shapefiles_0.7.zip', repos = NULL, type = "win.bi
 
 library(sf) # manipulate shp
 library(shapefiles) # library used to get the attr table
+library(knitr) # create table in Rmd file
+
 
 install.packages("shapefile")
 
@@ -29,7 +31,7 @@ library(tinytex)
 
 
 library(shapefiles) # library used to get the attr table
-library(knitr) # create table in Rmd file
+
 
 ### SET WORKING DIRECTORY ----
 
@@ -139,7 +141,7 @@ for (i in 1:length(list_shp)){
   # read shapefile with shapefile package
   temp_shp <- strsplit(list_shp[i], split='.shp', fixed=TRUE)
   
-  shape <- read.dbf(paste(temp_shp,".dbf",sep = ""), header = TRUE)
+  shape <- read.dbf(paste(path_dest,"/",temp_shp,".dbf",sep = ""), header = TRUE)
   list_whaaat[[i]] <- shape$header$fields
 }
 
@@ -149,7 +151,7 @@ for (i in 1:length(list_shp)){
 
 path_print <- as.data.frame(path_dest) # save the file in df for the markdown
 
-rmarkdown::render( input = "metadataExtractor/metadata.Rmd",
+rmarkdown::render( input = "./metadata.Rmd",
                    output_format = "pdf_document",
-                   output_file = paste("MetadataGenerator", ".pdf", sep = ""),
-                   output_dir = getwd()) 
+                   output_file = paste("0_metadata", ".pdf", sep = ""),
+                   output_dir = path_dest) 
