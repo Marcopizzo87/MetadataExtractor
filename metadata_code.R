@@ -1,74 +1,58 @@
 #####################################################
 #       Metadata Extractor from shapefile           #
 #                                                   #  
-#                February 16th 2019                 #
+#                  February 2019                    #
 #                 Marco Pizzolato                   #
 #####################################################
 
 ### SHORT DESCRIPTION ----
 
-# The script loops through the shapefile in a folder and creates a report.
+# Given a specific folder path the script loops through the folder and subfolders
+# looking specifically for shapefiles (.shp).
+# The scrip builds on a previous script called "file_lister.R" but in addition it
+# gives other information such as projection, attributes.
 
-### PACKAGES ----
+# Inputs: .csv file in the destination folder with some information (filled by me followign the template)
 
-## Install previous version of rmarkdown
-# install.packages("devtools")
-# library(devtools)
-# install_version("rmarkdown",version=1.8)
+# Otputs: (1) .pdf report in the target folder
 
-install.packages('D:/Downloads/shapefiles_0.7.zip', repos = NULL, type = "win.binary")
+# Clean the environment if you need to do so
+# rm(list = ls())
+
+
+#### LIBRARIES ----
+
+## In case you have issues with your version of rmarkdown
+# install_version("rmarkdown",version=1.8) 
+
+## Unfortunately the script uses a deprecated library which still works in R 3.5.2, but you have to nstall it manually
+## the zip file is available in at this github repository "Marcopizzo87/MetadataExtractor"
+# install.packages('D:/Downloads/shapefiles_0.7.zip', repos = NULL, type = "win.binary") # change the path to your download folder
 
 library(sf) # manipulate shp
 library(shapefiles) # library used to get the attr table
 library(knitr) # create table in Rmd file
+library(rmarkdown)
 
 
-install.packages("shapefile")
+####  SET THESE PARAMETERS ----
 
-library(devtools)
-library(rmarkdown) # ensure to have version 1.8
-library(tinytex) 
-
-
-library(shapefiles) # library used to get the attr table
+# Target FOLDER
+PATH_DEST <- ("D:/Desktop/../..") # Replace with the folder you want to scan (the scrip scans also the sub-folders)
 
 
-### SET WORKING DIRECTORY ----
+####  SCRIPT ----
 
-# get path to current folder
-# path <- dirname(rstudioapi::getSourceEditorContext()$path)
-# path2 <- path
-# get path to current folder + file
-# path3 <- rstudioapi::getSourceEditorContext()$path
-
-# path <- ("D:/Desktop/SSD_GIS/Flood_Map/Awerial")
-
-# set the WD to the current path
-# setwd(path)
-
-
-
-###  SET THESE PARAMETERS ----
-
-# folder you want to scan (the scrip scans also the sub-folders)
-path_dest <- ("D:/Desktop/SSD_GIS/Flood_Map")
-
-
-###  SCRIPT ----
-
-# Set WD automatically
+# Set WD automatically to where the R scrip is
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
 # Check the wd
 getwd()
 
-# Clean the environment
-# rm(list = ls())
 
+## Read external CSV file with some metadata (filled by me)
 
-
-### READ EXCEL ----
-# see if in the directory I want to scan there is an excel file with the general informations for the report
+# check if in the directory I want to scan there is an excel file with the general informations for the report
 exist <- which(list.files(path_dest) == "metadata_to_fill.csv")
 
 
